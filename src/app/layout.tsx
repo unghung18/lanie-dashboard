@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Karla } from "next/font/google";
 import "./globals.css";
+import { Sidebar } from "@/components/Sidebar";
+import Header from "@/components/Header";
+import PageWrapper from "@/components/PageWrapper";
+import ReduxProvider from "@/redux/provider";
+import { ThemeProvider } from "@/lib/ThemeProvider";
 
-const inter = Inter({ subsets: ["latin"] });
+import { ToastContainer, Slide } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
+const karla = Karla({ subsets: ["latin"], weight: ["200", "300", "400", "500", "600", "700", "800"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +23,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={karla.className}>
+        <ReduxProvider>
+          <ThemeProvider
+            themes={['dark', 'light']}
+            enableSystem
+            disableTransitionOnChange>
+            <main>{children}</main>
+            <ToastContainer
+              position="top-right"
+              autoClose={1500}
+              style={{ zIndex: 9999999 }}
+              limit={5}
+              transition={Slide}
+            />
+          </ThemeProvider>
+        </ReduxProvider>
+      </body>
     </html>
   );
 }
