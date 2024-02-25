@@ -27,7 +27,7 @@ export default function RootLayout({
       <body className={karla.className}>
         <ReduxProvider>
           <ThemeProvider
-            themes={['dark', 'light']}
+            themes={['light', 'dark']}
             enableSystem
             disableTransitionOnChange>
             <main>{children}</main>
